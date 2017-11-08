@@ -10,7 +10,9 @@ const cors = require('cors')
 
 // express
 const app = express()
-app.listen(process.env.PORT, () => console.log(`app listening on port ${process.env.PORT}`))
+app.listen(process.env.SERVER_PORT, () =>
+  console.log(`app listening on port ${process.env.PORT}`)
+)
 
 // don't forget to run nsp check (and possibly snyk test and maybe snyk wizard)
 // helmet - security best practice
@@ -22,30 +24,30 @@ app.use(express.json())
 // does proxy value in client code package.json should avoid needing this?
 // this proxy value may only work with create-react-app?
 if (process.env.NODE_ENV === 'development') {
-    app.use(cors())
-}    
+  app.use(cors())
+}
 
 // sessions
 const sess = {
-    secret: process.env.SECRET,
-    name: 'session',
-    cookie: {
-        maxAge: 60 * 60 * 1000 // one hour
-    },
-    resave: false,
-    saveUninitialized: false
+  secret: process.env.SECRET,
+  name: 'session',
+  cookie: {
+    maxAge: 60 * 60 * 1000 // one hour
+  },
+  resave: false,
+  saveUninitialized: false
 }
 if (process.env.NODE_ENV === 'production') {
-    app.set('trust proxy', 1)
-    sess.cookie.secure = true
-    sess.cookie.domain = process.env.DOMAIN
+  app.set('trust proxy', 1)
+  sess.cookie.secure = true
+  sess.cookie.domain = process.env.DOMAIN
 }
 app.use(session(sess))
 
 // massive
 const connectionInfo = process.env.DB_CONNECTION_STRING
 massive(connectionInfo).then(instance => {
-    app.set('db', instance)
+  app.set('db', instance)
 })
 
 // passport - Auth0
@@ -56,7 +58,7 @@ massive(connectionInfo).then(instance => {
 //         , clientSecret: process.env.AUTH0_CLIENT_SECRET
 //         , callbackURL: '/callback'
 //     }
-//     ,   
+//     ,
 //     (accessToken, refreshToken, extraParams, profile, done) => {
 //         return done(null, profile)
 //     }
@@ -89,7 +91,6 @@ massive(connectionInfo).then(instance => {
 //         res.redirect('/')
 //     }
 // )
-
 
 // endpoints
 // app.post('/api/users/', handlers.addUser)
