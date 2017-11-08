@@ -11,7 +11,7 @@ const cors = require('cors')
 // express
 const app = express()
 app.listen(process.env.SERVER_PORT, () =>
-  console.log(`app listening on port ${process.env.PORT}`)
+  console.log(`app listening on port ${process.env.SERVER_PORT}`)
 )
 
 // don't forget to run nsp check (and possibly snyk test and maybe snyk wizard)
@@ -98,3 +98,4 @@ massive(connectionInfo).then(instance => {
 // app.get('/api/users/:id', handlers.getUser)
 // app.patch('/api/users/:id', handlers.updateUser)
 // app.delete('/api/users/:id', handlers.deleteUser)
+app.get('/api/me/runs-by-type', handlers.getRunsByType)
