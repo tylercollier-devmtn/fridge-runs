@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS runs;
 
 CREATE TABLE IF NOT EXISTS runs (
     id serial PRIMARY KEY,
-    type INTEGER REFERENCES users (id),
-    owner INTEGER REFERENCES users (id),
-    redeemed TEXT
+    type_id INTEGER REFERENCES users (id),
+    owner_id INTEGER REFERENCES users (id),
+    redeemed timestamp
 )
