@@ -92,7 +92,7 @@ module.exports = {
           runs.map(x => ({
             ownerId: x.owner_id,
             displayName: x.display_name,
-            count: x.count
+            count: parseInt(x.count, 10)
           }))
         )
       })
